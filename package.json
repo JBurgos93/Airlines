@@ -1,0 +1,27 @@
+{
+  "name": "airlines",
+  "version": "1.0.0",
+  "description": "This is the readme.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JBurgos93/Airlines.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JBurgos93/Airlines/issues"
+  },
+  "homepage": "https://github.com/JBurgos93/Airlines#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.0",
+    "router": "^1.3.7"
+  }
+}
