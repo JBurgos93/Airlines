@@ -2,7 +2,6 @@ const Flight = require('../models/Flight.model');
 
 const createFlight = async ({flightNumber, modelType, depDate, arrDate, depTime, arrTime, depAirport, arrAirport, passengerCount, passengerCap}) => {
     try {
-        console.log("Line 5");
         const flight = new Flight({
             flightNumber,
             modelType,
@@ -15,14 +14,9 @@ const createFlight = async ({flightNumber, modelType, depDate, arrDate, depTime,
             passengerCount,
             passengerCap
         });
-        console.log("Line 18");
-        
         await flight.save();
-        
-        console.log("Line 20");
         return flight._id;
     } catch (err) {
-        console.log("Line 23 - Error");
         console.err(err);
         throw { status: 400, message: err};
     }

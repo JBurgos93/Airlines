@@ -14,7 +14,6 @@ router.post('/flights', async (req, res) => {
         const flightId = await createFlight(req.body);
         res.status(201).json({_id: flightId});
     } catch (err) {
-        console.log("Oh no 17!");
         res.status(err?.status || 500).json(err);
     }
 });

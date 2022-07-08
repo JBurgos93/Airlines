@@ -1,22 +1,13 @@
-//import { userState } from 'react';
-//import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-//import { AppNav } from './features';
-import { Landing, AddPage, ViewPage, Error, EditPage, About, Extras, Clock } from './pages'
-//import ThemContext, { themes } from './contexts/ThemeContext';
-//import { Header } from './components/Header';
+import { ViewPage, Error, About, Extras, Clock } from './pages'
 import { Footer } from './components/Footer';
-//import { Nav } from './components/Nav';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-//import NavDropdown from 'react-bootstrap/NavDropdown';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css' // Need this so the Bootstrap React components get styled
 
 const App = () => {
 
-    //const [state, setState] = useState();
-    
     return(
         <div className="flex-wrapper">
             <Navbar bg="primary" expand="lg"  >

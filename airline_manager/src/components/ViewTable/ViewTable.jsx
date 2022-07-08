@@ -1,36 +1,28 @@
-import { Center } from '../Styles';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { Link } from 'react-router-dom';
-import './style.css';
-import {EditFlightForm} from '../EditFlightForm';
-import {EditFlightForm2} from '../EditFlightForm2';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { EditModal } from '../EditModal';
-
 import Table from 'react-bootstrap/Table';
+import { EditFlightForm } from '../EditFlightForm';
 import { AddFlightForm } from '../AddFlightForm';
-import { AddFlightForm2 } from '../AddFlightForm2';
-
+import { Center } from '../Styles';
+import './style.css';
 
 export const ViewTable = () => {
-    //const location = useLocation();
-    //const { tempId } = location.state;
 
+    // Setting States
     const [flights, setFlights]  = useState([]);
     const [show, setShow] = useState(false);
     const [show1, setShow1] = useState(false);
     const [id, setId] = useState(null);
-    const [columnSorts, setColumnSorts] = useState([0,0,0,0,0,0,0,0,0,0]);
 
-
+    // On Load
     useEffect(() => {
         axios.get('http://localhost:8080/flights')
             .then(res => setFlights(res.data))
     }, []);
 
+    // Delete Flight
     const handleDelete = (id) => {
         console.log("Delete");
         console.log(id);
@@ -39,27 +31,27 @@ export const ViewTable = () => {
 
     }
 
+    // Close Add Flight Modal
     const handleClose = () => {
         setShow(false);
-        //window.location.reload();
     }   
+
+    // Close Edit Flight Modal
     const handleClose1 = () => {
         setShow1(false);
-        //window.location.reload();
     }
+
+    // Open Edit Flight Modal
     const handleOpen = (event) => {
         setId(event);
         setShow(true);
     }
+
+    // Open Add Flight Modal
     const handleOpen1 = () => {
         setShow1(true);
     }
-    const col1Click = () => {
-        console.log("Clicked flight number column.");
-        console.log(flights);
-        setFlights(flights.sort((a,b) => {return a.flightNumber - b.flightNumber}));
-        console.log(flights);
-    }
+
     return(
         <Center>
             <Button className="addbtn" onClick={handleOpen1}>Add Flight</Button>
@@ -69,7 +61,7 @@ export const ViewTable = () => {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <EditFlightForm2 id={id} flights={flights}/>
+                    <EditFlightForm id={id} flights={flights}/>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -84,7 +76,7 @@ export const ViewTable = () => {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <AddFlightForm2 flights={flights}/>
+                    <AddFlightForm flights={flights}/>
                 </Modal.Body>
 
                 <Modal.Footer>
@@ -144,53 +136,3 @@ export const ViewTable = () => {
         </Center>
     );
 }
-/*
-                                    <Link className="buttonStyle" state={{id: flight._id}} to="/edit" >&#9998;</Link>
-                                    <Link className="buttonStyle" state={{id: flight._id}} to="/edit" >&#9998;</Link>
-
-<button className="buttonStyle" value={flight._id}  component={Link} to="/edit" >&#9998;</button>
-
-<Table striped bordered hover className="centertext" size="sm">
-                <thead>
-                    <tr className="thickerColumn">
-                        <th colSpan='2'>Plane Information</th>
-                        <th colSpan='3'>Departure</th>
-                        <th colSpan='3'>Arrival</th>
-                        <th colSpan='2'>Passengers</th>
-                    </tr>
-                </thead>
-                <thead>
-                    <tr>
-                        <th>Flight #</th>
-                        <th>Model</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Location</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Location</th>
-                        <th>Current</th>
-                        <th>Capacity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {flights.map((flight, index) => {
-                        return(
-                            <tr key={flight._id}>
-                                <td><strong>{flight.flightNumber}</strong></td>
-                                <td><strong>{flight.modelType}</strong></td>
-                                <td><strong>{flight.depDate}</strong></td>
-                                <td><strong>{flight.depTime}</strong></td>
-                                <td><strong>{flight.depAirport}</strong></td>
-                                <td><strong>{flight.arrDate}</strong></td>
-                                <td><strong>{flight.arrTime}</strong></td>
-                                <td><strong>{flight.arrAirport}</strong></td>
-                                <td><strong>{flight.passengerCount}</strong></td>
-                                <td><strong>{flight.passengerCap}</strong></td>
-                            </tr>
-                        );
-                    })}
-                    
-                </tbody>
-            </Table>
-*/

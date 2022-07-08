@@ -9,6 +9,7 @@ import './style.css';
 export const AddFlightForm = () => {
     const navigate = useNavigate();
 
+    // References
     const flightNumberRef = useRef();
     const modelTypeRef = useRef();
     const depDateRef = useRef();
@@ -23,8 +24,7 @@ export const AddFlightForm = () => {
     const alertRef = useRef();
     const current = new Date();
 
-    //const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}}`;
-
+    // Setting States
     const [depDateValue, onChange1] = useState(new Date());
     const [arrDateValue, onChange2] = useState(new Date());
     const [depTimeValue, onChange3] = useState();
@@ -42,42 +42,31 @@ export const AddFlightForm = () => {
     const [alertText2, setAlertText2] = useState("");
     const [alertText3, setAlertText3] = useState("");
     const [alertText4, setAlertText4] = useState("");
-    const [alertText5, setAlertText5] = useState("");
     
     useEffect(() => {
-        axios.get('http://localhost:8080/flights')
-            .then(res => setFlights(res.data));
-        axios.get('http://localhost:8080/plane')
-            .then(res => setPlanes(res.data));
-        axios.get('http://localhost:8080/airport')
-            .then(res => setAirports(res.data));
+        try{
+            axios.get('http://localhost:8080/flights')
+                .then(res => setFlights(res.data));
+            axios.get('http://localhost:8080/plane')
+                .then(res => setPlanes(res.data));
+            axios.get('http://localhost:8080/airport')
+                .then(res => setAirports(res.data));
+        } catch(error){
+            console.log(error);
+        }
     }, []);
 
+    // On Form Submit
     const handleSubmit = async (event) => {
         event.preventDefault();
-        //console.log(`${flightNumberRef} ${modelTypeRef} ${depDateRef} ${arrDateRef} ${depTimeRef} ${arrTimeRef} ${depAirportRef} ${arrAirportRef} ${passengerCountRef} ${passengerCapRef} `);
-        let duplicate = false;
-        let negative = false;
-        
+
+        // Refreshing Alert Text
         setAlertText1('');
         setAlertText2('');
         setAlertText3('');
         setAlertText4('');
-        setAlertText5('');
 
-        if(flightNumberRef < 1)
-
-        flights.forEach(temp => {
-            //console.log(temp.flightNumber + " -- " + flightNumberRef.current.value)
-            if(temp.flightNumber == flightNumberRef.current.value){
-                duplicate = true;
-                setAlertText1('That flight number already exists. Try a different one.');
-                setShow(true);
-            }
-        });
-
-        let timeParadox = false;
-
+        // Grabbing Times
         let temp1 = depTimeValue.charAt(0) + depTimeValue.charAt(1) + depTimeValue.charAt(3) + depTimeValue.charAt(4)
         let temp2 = arrTimeValue.charAt(0) + arrTimeValue.charAt(1) + arrTimeValue.charAt(3) + arrTimeValue.charAt(4)
 
@@ -86,33 +75,34 @@ export const AddFlightForm = () => {
 
         let temp3 = temp1 > temp2;
 
-        //console.log("temp 1 = " + temp1);
-        //console.log("temp 2 = " + temp2);
-        //console.log("equals = " + temp3);
 
-
-
+        // Grabbing Dates
         let dep = `${depDateValue.getDate()}/${depDateValue.getMonth()+1}/${depDateValue.getFullYear()}`;
         let arr = `${arrDateValue.getDate()}/${arrDateValue.getMonth()+1}/${arrDateValue.getFullYear()}`;
 
         let temp4 = dep === arr;
 
-        console.log("depDateValue = " + dep);
-        console.log("arrDateValue = " + arr);
-        console.log("equals = " + temp4);
 
+
+        // Check for duplicate Flight Number
+        let duplicate = false;
+        flights.forEach(temp => {
+            if(temp.flightNumber == flightNumberRef.current.value){
+                duplicate = true;
+                setAlertText1('That flight number already exists. Try a different one.');
+                setShow(true);
+            }
+        });
+
+        // Check for Arrivals happening after Departures
+        let timeParadox = false;
         if(temp4 && temp3){
-            console.log("POTATOES");
             timeParadox = true;
             setAlertText2('Arrivals must occur AFTER departures.');
             setShow(true);
         }
 
-        console.log("Dep date = " + depDateValue);
-        console.log("Arr date = " + arrDateValue);
-        console.log("Dep time = " + depTimeValue);
-        console.log("Arr time = " + arrTimeValue);
-
+        // Check for Passenger Count being greater than Capacity
         let overCap = false;
         if(passengerCountRef.current.value > passengerCapRef.current.value){
             overCap = true;
@@ -121,6 +111,7 @@ export const AddFlightForm = () => {
 
         }
 
+        // Check for both airports being the same place
         let airportDup = false;
         if(depAirportRef.current.value == arrAirportRef.current.value){
             airportDup = true;
@@ -128,9 +119,8 @@ export const AddFlightForm = () => {
             setShow(true);
         }
 
+        // Only POSTs if all checks were good
         if(!duplicate && !timeParadox && !overCap && !airportDup){
-            //onChange1(dep);
-            //onChange2(arr);
             try{
             
                 axios.post('http://localhost:8080/flights',
@@ -147,16 +137,20 @@ export const AddFlightForm = () => {
                         passengerCap: passengerCapRef.current.value
                     });
                 navigate('../view', {replace:true});
+                window.location.reload();
             } catch(error){
                 console.log('There was an error.')
             }
         }
         
     }
+
     const onClose = () => {
         setShow(false);
         alertRef.value = "";
     }
+
+    // Updates Capacity based on plane model
     const planeChange = () => {
         planes.forEach(plane => {
             if(plane.name == modelTypeRef.current.value){
@@ -170,7 +164,7 @@ export const AddFlightForm = () => {
             
                 <label htmlFor="Flight Number">Flight Number:</label>
                 <div>
-                    <input id="Flight Number" type="number" placeholder="#" step="0" min="1" max="9999999" ref={flightNumberRef} required={true}/>
+                    <input id="Flight Number" type="number" step="1" min="1" max="9999999" placeholder="#" ref={flightNumberRef} required={true}/>
                 </div>
 
                 <label htmlFor="modelType" >Plane:</label>
@@ -248,7 +242,6 @@ export const AddFlightForm = () => {
 
                 <input type="submit" value="Add Flight" />
                 <Alert ref={alertRef} variant="danger" onClose={onClose} show={show} dismissible className="alert">
-                <p>{alertText5}</p>
                 <p>{alertText1}</p>
                 <p>{alertText2}</p>
                 <p>{alertText3}</p>
@@ -258,16 +251,3 @@ export const AddFlightForm = () => {
         </>
     );
 }
-/*
-
-                <label htmlFor="depTime">Departure Time:</label>
-                <div>
-                    <input id="depTime" type="text" placeholder="15:00" ref={depTimeRef}/>
-                </div>
-
-                <label htmlFor="arrTime">Arrival Time:</label>
-                <div>
-                    <input id="arrTime" type="text" placeholder="15:00" ref={arrTimeRef}/>
-                </div>
-                    <input id="arrDate" type="text" placeholder="01-01-22" ref={arrDateRef}/>
-*/
