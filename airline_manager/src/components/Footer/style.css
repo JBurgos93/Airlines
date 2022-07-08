@@ -1,0 +1,13 @@
+
+footer {
+    background: #B8B8B8;
+    height: 60px;
+}
+
+footer span{
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}

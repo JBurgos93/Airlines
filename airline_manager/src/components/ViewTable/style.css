@@ -1,0 +1,17 @@
+.centertext{
+    text-align: center;
+}
+.thickerColumn1{
+    border: solid 3px black;
+}
+.buttonStyle{
+    padding: 0;
+    border: none;
+    background: none;
+    text-align: left;
+    margin-left: 0px;
+}
+.alignright{
+    text-align: right;
+    margin-right: 0px;
+}

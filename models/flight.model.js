@@ -1,43 +1,48 @@
 const mongoose = require('mongoose');
-const { isNumber } = require('util');
+//const { isNumber } = require('util');
 const Schema = mongoose.Schema;
-
-const flightSchema = new Schema({ // not specifying _id so it gets auto generated
+// not specifying _id so it gets auto generated
+const flightSchema = new Schema({
+    flightNumber: {
+        type: Number,
+        required: true,
+        unique: true
+    },
     modelType: {
         type: String,
-        required: true
+        required: false
     },
     depDate: {
-        type: Date,
-        required: true
+        type: String,
+        required: false
     },
     arrDate: {
-        type: Date,
-        required: true
+        type: String,
+        required: false
     },
     depTime:  {
         type: String,
-        required: true
+        required: false
     },
     arrTime:  {
         type: String,
-        required: true
+        required: false
     },
     depAirport:  {
         type: String,
-        required: true
+        required: false
     },
     arrAirport:  {
         type: String,
-        required: true
+        required: false
     },
     passengerCount: {
         type: Number,
-        required: true
+        required: false
     },
     passengerCap: {
         type: Number,
-        required: true
+        required: false
     }
 });
 

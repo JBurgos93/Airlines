@@ -1,16 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
-//const logger = require('./middleware/logger');
-//const cors = require('cors');
+const logger = require('./middleware/logger');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 app.use(express.json());
-//app.use(cors()); Allows all traffic?
-//app.use(logger);
+app.use(cors()); //Allows all traffic
+app.use(logger);
 
-app.use('/test', require('./routes/testroute.js'));
+app.use('/', require('./routes/routes.js'));
 
 app.all('*', (req,res)=>{
     res.status(404).send('Webpage not found!');
