@@ -42,6 +42,7 @@ export const AddFlightForm = () => {
     const [alertText2, setAlertText2] = useState("");
     const [alertText3, setAlertText3] = useState("");
     const [alertText4, setAlertText4] = useState("");
+    const [alertText5, setAlertText5] = useState("");
     
     useEffect(() => {
         axios.get('http://localhost:8080/flights')
@@ -56,13 +57,15 @@ export const AddFlightForm = () => {
         event.preventDefault();
         //console.log(`${flightNumberRef} ${modelTypeRef} ${depDateRef} ${arrDateRef} ${depTimeRef} ${arrTimeRef} ${depAirportRef} ${arrAirportRef} ${passengerCountRef} ${passengerCapRef} `);
         let duplicate = false;
-
+        let negative = false;
         
         setAlertText1('');
         setAlertText2('');
         setAlertText3('');
         setAlertText4('');
+        setAlertText5('');
 
+        if(flightNumberRef < 1)
 
         flights.forEach(temp => {
             //console.log(temp.flightNumber + " -- " + flightNumberRef.current.value)
@@ -167,7 +170,7 @@ export const AddFlightForm = () => {
             
                 <label htmlFor="Flight Number">Flight Number:</label>
                 <div>
-                    <input id="Flight Number" type="number" placeholder="#" ref={flightNumberRef} required={true}/>
+                    <input id="Flight Number" type="number" placeholder="#" step="0" min="1" max="9999999" ref={flightNumberRef} required={true}/>
                 </div>
 
                 <label htmlFor="modelType" >Plane:</label>
@@ -235,7 +238,7 @@ export const AddFlightForm = () => {
 
                 <label htmlFor="passengerCount">Passenger Count:</label>
                 <div>
-                    <input id="passengerCount" type="number" placeholder="0" ref={passengerCountRef} required={true}/>
+                    <input id="passengerCount" type="number" placeholder="0" step="1" min="0" max="999" ref={passengerCountRef} required={true}/>
                 </div>
 
                 <label htmlFor="passengerCap">Passenger Cap:</label>
@@ -245,6 +248,7 @@ export const AddFlightForm = () => {
 
                 <input type="submit" value="Add Flight" />
                 <Alert ref={alertRef} variant="danger" onClose={onClose} show={show} dismissible className="alert">
+                <p>{alertText5}</p>
                 <p>{alertText1}</p>
                 <p>{alertText2}</p>
                 <p>{alertText3}</p>

@@ -31,5 +31,16 @@ const findAllAirports = async (limit=0) => {
     const airports = await Airport.find();
     return airports;
 }
-
-module.exports = {createAirport, findAirportById, findAllAirports};
+const removeAirportById = async id => {
+    try{
+        const airport = await Airport.findByIdAndDelete(id);
+        if(airport == null){
+            throw `No airport with id: ${id} was found.`;
+        }
+        return airport;
+    } catch(err){
+        console.log(err);
+        throw { status: 400, message: err};
+    }
+}
+module.exports = {createAirport, findAirportById, findAllAirports, removeAirportById};

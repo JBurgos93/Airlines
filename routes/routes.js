@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const { createFlight } = require('../controllers/flight.controller');
 const { findAllFlights, findFlightById, removeFlightById, updateFlightById} = require('../controllers/flight.controller');
-const { createAirport, findAllAirports, findAirportById} = require('../controllers/airport.controller');
-const { createPlane, findAllPlanes, findPlaneById} = require('../controllers/plane.controller');
+const { createAirport, findAllAirports, findAirportById, removeAirportById} = require('../controllers/airport.controller');
+const { createPlane, findAllPlanes, findPlaneById, removePlaneById} = require('../controllers/plane.controller');
 
 router.get('/flights', async (req, res) => {
     const flights = await findAllFlights();
@@ -71,6 +71,14 @@ router.get('/airport/:id', async (req, res) => {
         res.status(err?.status || 400).json(err);
     }
 });
+router.post('/airport/delete/:id', async (req, res) => {
+    try{
+        const airportId = await removeAirportById(req.params.id);
+        res.status(201).json({_id: airportId})
+    } catch(err){
+        res.status(err?.status || 500).json(err);
+    }
+});
 /* Plane */
 router.get('/plane', async (req, res) => {
     const planes = await findAllPlanes();
@@ -92,6 +100,15 @@ router.get('/plane/:id', async (req, res) => {
         res.json(plane);
     } catch (err){
         res.status(err?.status || 400).json(err);
+    }
+});
+
+router.post('/plane/delete/:id', async (req, res) => {
+    try{
+        const planeId = await removePlaneById(req.params.id);
+        res.status(201).json({_id: planeId})
+    } catch(err){
+        res.status(err?.status || 500).json(err);
     }
 });
 module.exports = router;

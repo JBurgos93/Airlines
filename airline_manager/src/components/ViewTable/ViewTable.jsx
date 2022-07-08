@@ -23,6 +23,8 @@ export const ViewTable = () => {
     const [show, setShow] = useState(false);
     const [show1, setShow1] = useState(false);
     const [id, setId] = useState(null);
+    const [columnSorts, setColumnSorts] = useState([0,0,0,0,0,0,0,0,0,0]);
+
 
     useEffect(() => {
         axios.get('http://localhost:8080/flights')
@@ -49,9 +51,19 @@ export const ViewTable = () => {
         setId(event);
         setShow(true);
     }
+    const handleOpen1 = () => {
+        setShow1(true);
+    }
+    const col1Click = () => {
+        console.log("Clicked flight number column.");
+        console.log(flights);
+        setFlights(flights.sort((a,b) => {return a.flightNumber - b.flightNumber}));
+        console.log(flights);
+    }
     return(
         <Center>
-            <Modal show={show} onHide={handleClose}>
+            <Button className="addbtn" onClick={handleOpen1}>Add Flight</Button>
+            <Modal className="modal-width" show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Editing Flight</Modal.Title>
                 </Modal.Header>
@@ -66,7 +78,7 @@ export const ViewTable = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <Modal show={show1} onHide={handleClose1}>
+            <Modal className="modal-width" show={show1} onHide={handleClose1}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add New Flight</Modal.Title>
                 </Modal.Header>
@@ -81,7 +93,7 @@ export const ViewTable = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <Table striped bordered hover className="centertext" size="sm">
+            <Table striped bordered hover className="centertext" size="lg" variant="dark">
                 <thead>
                     <tr className="thickerColumn">
                         <th colSpan='2'>Plane Information</th>

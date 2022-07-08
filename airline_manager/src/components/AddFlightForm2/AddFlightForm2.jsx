@@ -6,7 +6,7 @@ import TimePicker from 'react-time-picker';
 import Alert from 'react-bootstrap/Alert';
 import './style.css';
 
-export const AddFlightForm2 = (props) => {
+export const AddFlightForm2 = () => {
     const navigate = useNavigate();
 
     const flightNumberRef = useRef();
@@ -44,6 +44,7 @@ export const AddFlightForm2 = (props) => {
     const [alertText4, setAlertText4] = useState("");
     
     useEffect(() => {
+        console.log("POOTOTOTOTOTOT");
         axios.get('http://localhost:8080/flights')
             .then(res => setFlights(res.data));
         axios.get('http://localhost:8080/plane')
@@ -144,6 +145,7 @@ export const AddFlightForm2 = (props) => {
                         passengerCap: passengerCapRef.current.value
                     });
                 navigate('../view', {replace:true});
+                window.location.reload();
             } catch(error){
                 console.log('There was an error.')
             }
@@ -167,7 +169,7 @@ export const AddFlightForm2 = (props) => {
             
                 <label htmlFor="Flight Number">Flight Number:</label>
                 <div>
-                    <input id="Flight Number" type="number" placeholder="#" ref={flightNumberRef} required={true}/>
+                    <input id="Flight Number" type="number" step="1" min="1" max="9999999" placeholder="#" ref={flightNumberRef} required={true}/>
                 </div>
 
                 <label htmlFor="modelType" >Plane:</label>
@@ -235,7 +237,7 @@ export const AddFlightForm2 = (props) => {
 
                 <label htmlFor="passengerCount">Passenger Count:</label>
                 <div>
-                    <input id="passengerCount" type="number" placeholder="0" ref={passengerCountRef} required={true}/>
+                    <input id="passengerCount" type="number" placeholder="0" step="1" min="0" max="999" ref={passengerCountRef} required={true}/>
                 </div>
 
                 <label htmlFor="passengerCap">Passenger Cap:</label>

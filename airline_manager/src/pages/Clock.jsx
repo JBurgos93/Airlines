@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 import DatePicker from 'react-date-picker';
 import badlayout from './badlayout.png';
-export const Landing = () => {
+export const Clock = () => {
     function refreshClock(){
         setDate(new Date());
     }
@@ -23,13 +23,9 @@ export const Landing = () => {
     });
 
     return(
-        <Center>
-            <span>
+            <h4>
                 EST: {date.toLocaleTimeString()}
-                <br />
-                <img src={badlayout} className="App-logo" alt="logo" />
-            </span>
-        </Center>
+            </h4>
     );
 }
 /*

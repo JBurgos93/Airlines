@@ -118,7 +118,7 @@ export const EditFlightForm = () => {
 
                 <label htmlFor="passengerCount">Passenger Count:</label>
                 <div>
-                    <input id="passengerCount" type="number" placeholder="0" ref={passengerCountRef} defaultValue={flight.passengerCount}/>
+                    <input id="passengerCount" type="number" placeholder="0" step="1" min="0" max="999" ref={passengerCountRef} defaultValue={flight.passengerCount}/>
                 </div>
 
                 <label htmlFor="passengerCap">Passenger Cap:</label>

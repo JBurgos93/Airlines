@@ -15,3 +15,15 @@
     text-align: right;
     margin-right: 0px;
 }
+.myColumn{
+    cursor: pointer;
+}
+.modal-width{
+    display: block;
+    /*margin-left: 40%;
+    margin-right: 40%;
+    max-width: 20%;*/
+}
+.addbtn{
+    height: min-content;
+}
