@@ -3,7 +3,7 @@ This application was made as a training project under Skillstorm.
 
 The Airline Manager allows the user to manage plane flights for an airline. They can add, edit, or delete flights. They are organized into a table on the View Flights page. This application is created using React, Bootstrap & React-Bootstrap as the CSS framework, and MongoDB as the database. The servers are run via express. The MongoDB database contains three collections. Their contents and relationships are in the image below.
 
-[flightcollectiondiagram](./flightcollectionsdiagram.png)
+![flightcollectionsdiagram](https://user-images.githubusercontent.com/107504697/178040033-0383d7b0-b8d4-480f-8b82-6aea8cdf6be1.png)
 
 The Airports collection allows us to have a dropdown menu of airport names during flight creation/editing. The same goes for the Planes collection, except that this collection also includes a field for the plane's passenger capacity.
 
