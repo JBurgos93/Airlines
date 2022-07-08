@@ -8,6 +8,7 @@ The Airline Manager allows the user to manage plane flights for an airline. They
 The Airports collection allows us to have a dropdown menu of airport names during flight creation/editing. The same goes for the Planes collection, except that this collection also includes a field for the plane's passenger capacity.
 
 The github repository is located [here](https://github.com/JBurgos93/Airlines).
+![flightcollectionsdiagram](https://user-images.githubusercontent.com/107504697/178040033-0383d7b0-b8d4-480f-8b82-6aea8cdf6be1.png)
 
 ## Table of Contents
 * [Installation](#installation)
